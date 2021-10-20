@@ -58,6 +58,25 @@ class DeskController: NSObject {
         DeskController.shared = self
         
         autoStand.update()
+        
+        NSWorkspace.shared.notificationCenter.addObserver(
+                self, selector: #selector(onWakeNote(note:)),
+                name: NSWorkspace.didWakeNotification, object: nil)
+
+        NSWorkspace.shared.notificationCenter.addObserver(
+               self, selector: #selector(onSleepNote(note:)),
+               name: NSWorkspace.willSleepNotification, object: nil)
+    }
+    
+    @objc func onWakeNote(note: NSNotification) {
+        NSLog("Received wake note: \(note.name)")
+        
+        NSLog("Attempting to force reconnect after wake from sleep")
+        BluetoothManager.shared.forceReconnect()
+    }
+
+    @objc func onSleepNote(note: NSNotification) {
+        NSLog("Received sleep note: \(note.name)")
     }
     
     func onPositionChange(_ callback: @escaping (Float) -> Void) {

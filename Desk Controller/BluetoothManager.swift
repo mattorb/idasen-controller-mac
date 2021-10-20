@@ -51,6 +51,21 @@ class BluetoothManager: NSObject {
         let queue = DispatchQueue(label: "BT_queue")
         centralManager = CBCentralManager(delegate: self, queue: queue)
     }
+    
+    func forceReconnect() {
+//        // option one. nuke and rebuild  seems like overkill to start a whole new dispatch queue and new central manager?
+//        connectedPeripheral = nil // force a reconnect
+//        startScanning()
+
+        NSLog("Attempting force reconnect to peripheral, connectedPeripheral = \(String(describing: connectedPeripheral))")
+        if let savedIdentifier = connectedPeripheral?.identifier,
+           let peripherals = centralManager?.retrievePeripherals(withIdentifiers: [savedIdentifier]),
+           let peripheral = peripherals.first {
+            NSLog("Attempting force reconnect to peripheral with id \(savedIdentifier)")
+            connectedPeripheral = nil
+            centralManager?.connect(peripheral, options: nil)
+        }
+    }
 }
 
 extension BluetoothManager: CBCentralManagerDelegate {
