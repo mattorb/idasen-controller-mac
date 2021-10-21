@@ -52,17 +52,14 @@ class BluetoothManager: NSObject {
         centralManager = CBCentralManager(delegate: self, queue: queue)
     }
     
-    func reconnectIfDisconnected() {
-        if connectedPeripheral?.state == .disconnected {
-            NSLog("Attempting to reconnect a disconnected Peripheral: \(String(describing: connectedPeripheral))")
-
-            if let persistentIdentifier = connectedPeripheral?.identifier,
-               let peripherals = centralManager?.retrievePeripherals(withIdentifiers: [persistentIdentifier]),
-               let peripheral = peripherals.first {
-                NSLog("Attempting reconnect discconnected peripheral with id \(persistentIdentifier).  Old object = \(connectedPeripheral), New object = \(peripheral)")
-                centralManager?.connect(peripheral, options: nil)
-            }
+    func reconnect() {
+        guard let peripheral = connectedPeripheral,
+              peripheral.state == .disconnected else {
+                  return
         }
+        
+        NSLog("Attempting to reconnect a disconnected Peripheral: \(String(describing: peripheral))")
+        centralManager?.connect(peripheral, options: nil)
     }
 }
 
