@@ -52,18 +52,16 @@ class BluetoothManager: NSObject {
         centralManager = CBCentralManager(delegate: self, queue: queue)
     }
     
-    func forceReconnect() {
-//        // option one. nuke and rebuild  seems like overkill to start a whole new dispatch queue and new central manager?
-//        connectedPeripheral = nil // force a reconnect
-//        startScanning()
+    func reconnectIfDisconnected() {
+        if connectedPeripheral?.state == .disconnected {
+            NSLog("Attempting to reconnect a disconnected Peripheral: \(String(describing: connectedPeripheral))")
 
-        NSLog("Attempting force reconnect to peripheral, connectedPeripheral = \(String(describing: connectedPeripheral))")
-        if let savedIdentifier = connectedPeripheral?.identifier,
-           let peripherals = centralManager?.retrievePeripherals(withIdentifiers: [savedIdentifier]),
-           let peripheral = peripherals.first {
-            NSLog("Attempting force reconnect to peripheral with id \(savedIdentifier)")
-            connectedPeripheral = nil
-            centralManager?.connect(peripheral, options: nil)
+            if let persistentIdentifier = connectedPeripheral?.identifier,
+               let peripherals = centralManager?.retrievePeripherals(withIdentifiers: [persistentIdentifier]),
+               let peripheral = peripherals.first {
+                NSLog("Attempting reconnect discconnected peripheral with id \(persistentIdentifier).  Old object = \(connectedPeripheral), New object = \(peripheral)")
+                centralManager?.connect(peripheral, options: nil)
+            }
         }
     }
 }
@@ -113,8 +111,8 @@ extension BluetoothManager: CBCentralManagerDelegate {
         // print("Connected to peripheral: \(peripheral)")
         
         // Make sure it's the one we're connecting to
-        guard peripheral == connectedPeripheral else {
-            // print("Not the one we're tracking")
+        guard peripheral == connectedPeripheral || peripheral.identifier == connectedPeripheral?.identifier else {
+            NSLog("Not the one we're tracking...  \(peripheral) vs \(String(describing: connectedPeripheral))")
             return
         }
         

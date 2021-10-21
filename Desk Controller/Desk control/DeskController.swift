@@ -71,8 +71,7 @@ class DeskController: NSObject {
     @objc func onWakeNote(note: NSNotification) {
         NSLog("Received wake note: \(note.name)")
         
-        NSLog("Attempting to force reconnect after wake from sleep")
-        BluetoothManager.shared.forceReconnect()
+        BluetoothManager.shared.reconnectIfDisconnected()
     }
 
     @objc func onSleepNote(note: NSNotification) {
