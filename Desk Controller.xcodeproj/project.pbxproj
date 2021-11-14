@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45BE620F2741888600612260 /* LogWatcher in Frameworks */ = {isa = PBXBuildFile; productRef = 45BE620E2741888600612260 /* LogWatcher */; };
 		7D03619E25AC39B80051FB71 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D03619D25AC39B80051FB71 /* Preferences.swift */; };
 		7D0361A225AC42610051FB71 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0361A025AC42610051FB71 /* PreferencesWindowController.swift */; };
 		7D0361A325AC42610051FB71 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0361A125AC42610051FB71 /* PreferencesWindowController.xib */; };
@@ -62,6 +63,7 @@
 			files = (
 				7D8B1CC425AC2DD000ED1970 /* LaunchAtLogin in Frameworks */,
 				7D81874B25AC13AF0076DC19 /* Cocoa.framework in Frameworks */,
+				45BE620F2741888600612260 /* LogWatcher in Frameworks */,
 				7D81874F25AC13BD0076DC19 /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -166,6 +168,7 @@
 			name = "Desk Controller";
 			packageProductDependencies = (
 				7D8B1CC325AC2DD000ED1970 /* LaunchAtLogin */,
+				45BE620E2741888600612260 /* LogWatcher */,
 			);
 			productName = "Desk Controller";
 			productReference = 7D93E28425AAB38B00F37364 /* Desk Controller.app */;
@@ -196,6 +199,7 @@
 			mainGroup = 7D93E27B25AAB38B00F37364;
 			packageReferences = (
 				7D8B1CC225AC2DD000ED1970 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
+				45BE620D2741888600612260 /* XCRemoteSwiftPackageReference "LogWatcher" */,
 			);
 			productRefGroup = 7D93E28525AAB38B00F37364 /* Products */;
 			projectDirPath = "";
@@ -311,6 +315,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -372,6 +377,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -459,6 +465,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		45BE620D2741888600612260 /* XCRemoteSwiftPackageReference "LogWatcher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mattorb/LogWatcher";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		7D8B1CC225AC2DD000ED1970 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
@@ -470,6 +484,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		45BE620E2741888600612260 /* LogWatcher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 45BE620D2741888600612260 /* XCRemoteSwiftPackageReference "LogWatcher" */;
+			productName = LogWatcher;
+		};
 		7D8B1CC325AC2DD000ED1970 /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7D8B1CC225AC2DD000ED1970 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;

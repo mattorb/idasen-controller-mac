@@ -55,7 +55,8 @@ extension Date {
     public var nextHour: Date {
         let calendar = Calendar.current
         let minutes = calendar.component(.minute, from: self)
-        let components = DateComponents(hour: 1, minute: -minutes)
+        let seconds = calendar.component(.second, from: self)
+        let components = DateComponents(hour: 1, minute: -minutes, second: -seconds)
         return calendar.date(byAdding: components, to: self) ?? self
     }
 }

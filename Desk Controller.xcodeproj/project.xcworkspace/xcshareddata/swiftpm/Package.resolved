@@ -9,6 +9,15 @@
           "revision": "0f39982b9d6993eef253b81219d3c39ba1e680f3",
           "version": "4.0.0"
         }
+      },
+      {
+        "package": "LogWatcher",
+        "repositoryURL": "https://github.com/mattorb/LogWatcher",
+        "state": {
+          "branch": "main",
+          "revision": "390b3859b70c65b1c20edaf41727162321db9b4f",
+          "version": null
+        }
       }
     ]
   },
