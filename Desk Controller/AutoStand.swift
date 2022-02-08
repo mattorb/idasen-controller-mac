@@ -17,7 +17,8 @@ class AutoStand: NSObject {
 
     override init() {
         super.init()
-        camTracker = SysLogWatcher(sysLogPredicate: CameraEventProducer.sysLogPredicate, eventProducer: CameraEventProducer()) { [weak self] result in
+        let eventProducer = CameraEventProducer()
+        camTracker = SysLogWatcher(predicates: eventProducer.predicates, eventProducer: eventProducer) { [weak self] result in
                     switch(result) {
                     case .success(let event):
                         switch(event) {
@@ -97,26 +98,4 @@ enum CameraState: String {
 enum CameraEvent {
     case Start
     case Stop
-}
-
-struct CameraEventProducer: EventProducer {
-    typealias SuccessResultType = CameraEvent
-
-    static let sysLogText = "Post event kCameraStream"
-    static let sysLogPredicate = "eventMessage contains \"\(sysLogText)\""
-    
-    func transformToEvent(line: String) -> CameraEvent? {
-        switch(line) {
-        case _ where line.contains("Post event kCameraStreamStart"):
-            NSLog("cam: detected start")
-            return .Start
-        case _ where line.contains("Post event kCameraStreamStop"):
-            NSLog("cam: detected stop")
-            return .Stop
-        default:
-            break
-        }
-        
-        return nil  // ignored
-    }
 }
