@@ -22,12 +22,17 @@ class PreferencesWindowController: NSWindowController {
     @IBOutlet weak var autoStandInactiveLabel: NSTextField!
     
     @IBOutlet weak var openAtLoginCheckbox: NSButton!
+    @IBOutlet weak var cameraStateLabel: NSTextField!
     
     static let sharedInstance = PreferencesWindowController(windowNibName: "PreferencesWindowController")
     
     var deskController: DeskController? {
         didSet {
             deskPosition = deskController?.desk.position
+            
+            deskController?.autoStand.onCameraStateChange({[weak self] state in
+                self?.cameraStateLabel.stringValue = self?.deskController?.autoStand.lastKnownCameraState.rawValue ?? "Unknown"
+            })
         }
     }
     
@@ -96,6 +101,8 @@ class PreferencesWindowController: NSWindowController {
         }
         
         currentHeightField?.stringValue = String(format: "%.1f", offsetPosition)
+        
+        cameraStateLabel.stringValue = deskController?.autoStand.lastKnownCameraState.rawValue ?? "Unknown"
     }
     
     @IBAction func changeStandingHeightField(_ sender: NSTextField) {

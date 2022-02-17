@@ -13,29 +13,38 @@ class AutoStand: NSObject {
     private var downTimer: Timer?
 
     private var camTracker: SysLogWatcher?
-    private var lastKnownCameraState: CameraState = .unknown
+    public var lastKnownCameraState: CameraState = .unknown
+    
+    public var cameraStateChanged: ((CameraState) -> Void)?
 
     override init() {
         super.init()
         let eventProducer = CameraEventProducer()
         camTracker = SysLogWatcher(predicates: eventProducer.predicates, eventProducer: eventProducer) { [weak self] result in
-                    switch(result) {
+            guard let self = self else { return }
+
+            switch(result) {
                     case .success(let event):
                         switch(event) {
                         case .Start:
                             DispatchQueue.main.async {
-                                self?.lastKnownCameraState = .on
+                                self.lastKnownCameraState = .on
+                                self.cameraStateChanged?(self.lastKnownCameraState)
                             }
                         case .Stop:
                             DispatchQueue.main.async {
-                                self?.lastKnownCameraState = .off
+                                self.lastKnownCameraState = .off
+                                self.cameraStateChanged?(self.lastKnownCameraState)
                             }
                         }
                     case .failure(let data):
                         NSLog("Error decoding data \(data)")
-                    
             }
         }
+    }
+    
+    func onCameraStateChange(_ callback: @escaping (CameraState) -> Void) {
+        self.cameraStateChanged = callback
     }
     
     // update() can get called in overlapping ways between combo of resume from sleep and reconnecting to a device. Alt fix, make sure it is only called once..?
