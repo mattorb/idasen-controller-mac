@@ -1,25 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "LaunchAtLogin",
-        "repositoryURL": "https://github.com/sindresorhus/LaunchAtLogin",
-        "state": {
-          "branch": null,
-          "revision": "0f39982b9d6993eef253b81219d3c39ba1e680f3",
-          "version": "4.0.0"
-        }
-      },
-      {
-        "package": "LogWatcher",
-        "repositoryURL": "https://github.com/mattorb/LogWatcher",
-        "state": {
-          "branch": "main",
-          "revision": "198b91fce1091e86fcf0e343611d093fa0980cf3",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "launchatlogin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sindresorhus/LaunchAtLogin",
+      "state" : {
+        "revision" : "0f39982b9d6993eef253b81219d3c39ba1e680f3",
+        "version" : "4.0.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "logwatcher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mattorb/LogWatcher",
+      "state" : {
+        "branch" : "main",
+        "revision" : "8bbd61b5069cd1c9ca11fc57abd26231e18c5023"
+      }
+    }
+  ],
+  "version" : 2
 }
